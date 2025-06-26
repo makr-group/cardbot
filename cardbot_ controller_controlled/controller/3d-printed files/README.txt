@@ -1,4 +1,4 @@
-STL Files for carbot controllers
+STL and Step files for carbot controllers
 
 STL are designed to be printed with PLA and are untested 
 with PETG, ABS, and ABS.
