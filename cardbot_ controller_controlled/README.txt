@@ -1,3 +1,2 @@
-This is the code for Controller based Cardbots
-all the files located here will help with the uploaded code
-for controller based cardbots only.
+This folder contains all the code and 3D printed files for Controller based Cardbots.
+3d Printed and Cad files for the Cardbot chassis are located in the main folder
