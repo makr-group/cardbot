@@ -1,3 +1,24 @@
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║                                                                  ║
+// ║     ██████╗ █████╗ ██████╗ ██████╗ ██████╗  ██████╗ ████████╗    ║
+// ║    ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔═══██╗╚══██╔══╝    ║
+// ║    ██║     ███████║██████╔╝██║  ██║██████╔╝██║   ██║   ██║       ║
+// ║    ██║     ██╔══██║██╔══██╗██║  ██║██╔══██╗██║   ██║   ██║       ║
+// ║    ╚██████╗██║  ██║██║  ██║██████╔╝██████╔╝╚██████╔╝   ██║       ║
+// ║     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝    ╚═╝       ║
+// ║                                                                  ║
+// ╚══════════════════════════════════════════════════════════════════╝
+//
+//  █▄▄ █▄█   █▀▄▀█ ▄▀█ █▄▀ █▀█
+//  █▄█ ░█░   █░▀░█ █▀█ █░█ █▀▄
+//
+//  Cardbot Controller Code
+//  Version: 0.1.1
+//  Date: 7/10/2025
+//  Main controller code for cardbot
+//  Carbot Version: 1.0
+//  Controller Version: 1.0
+
 #include <esp_now.h>
 #include <WiFi.h>
 
@@ -7,23 +28,13 @@
 #define RIGHT_BUTTON_PIN 4
 
 esp_now_peer_info_t peer_info;
-uint8_t broadcast_address[] = {YOUR ROBOT MAC ADDRESS HERE};
+uint8_t broadcast_address[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };  // YOUR MAC ADDRESS HERE
 
 void on_data_sent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 }
 
-//Data Stucture
-typedef struct controller_message {
-  int16_t joy_1_x_axis;
-  int16_t joy_1_y_axis;
-  bool up_state;
-  bool down_state;
-  bool left_state;
-  bool right_state;
-  uint16_t connection_check = 0;
-};
-
-controller_message controller;
+//  █▄▄ █░█ ▀█▀ ▀█▀ █▀█ █▄░█   █▀ █▀▀ ▀█▀ █░█ █▀█
+//  █▄█ █▄█ ░█░ ░█░ █▄█ █░▀█   ▄█ ██▄ ░█░ █▄█ █▀▀
 
 typedef struct Button {
   uint8_t pin;
@@ -46,6 +57,21 @@ Button down_button;
 Button left_button;
 Button right_button;
 
+//  █▀▀ █▀█ █▄░█ ▀█▀ █▀█ █▀█ █░░ █░░ █▀▀ █▀█   █▀ █▀▀ ▀█▀ █░█ █▀█
+//  █▄▄ █▄█ █░▀█ ░█░ █▀▄ █▄█ █▄▄ █▄▄ ██▄ █▀▄   ▄█ ██▄ ░█░ █▄█ █▀▀
+
+typedef struct controller_message {
+  int16_t joy_1_x_axis;
+  int16_t joy_1_y_axis;
+  bool up_state;
+  bool down_state;
+  bool left_state;
+  bool right_state;
+  uint16_t connection_check = 0;
+};
+
+controller_message controller;
+
 void get_controller_state() {
   controller.up_state = up_button.get_value();
   controller.down_state = down_button.get_value();
@@ -53,6 +79,8 @@ void get_controller_state() {
   controller.right_state = right_button.get_value();
 };
 
+//  █▀ █▀▀ ▀█▀ █░█ █▀█
+//  ▄█ ██▄ ░█░ █▄█ █▀▀
 
 void setup() {
 
@@ -81,6 +109,9 @@ void setup() {
     return;
   }
 }
+
+//  █▀▄▀█ ▄▀█ █ █▄░█   █░░ █▀█ █▀█ █▀█
+//  █░▀░█ █▀█ █ █░▀█   █▄▄ █▄█ █▄█ █▀▀
 
 void loop() {
   static controller_message last_state;
