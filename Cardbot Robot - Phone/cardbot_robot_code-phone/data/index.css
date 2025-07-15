@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: Roboto, sans-serif;
+  font-size: 12pt;
+  overflow: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-columns: auto;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 20px auto;
+}
+
+.on {
+  display: flex;
+  background-color: lightgreen;
+  width: 100%;
+}
+
+.off {
+  display: flex;
+  background-color: lightcoral;
+  width: 100%;
+}
+
+h3 {
+  margin: auto;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.controllerFrame {
+  margin: auto;
+  display: grid;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  grid-template-columns: auto;
+  background-color: lightgray;
+  border-radius: 20px;
+  border: 5px solid black;
+}
+
+.controllerFrame h1 {
+  margin: auto;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.buttonFrame {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  align-items: center;
+  padding: 20px 0 20px 0;
+}
+
+.verticalButtonFrame {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 20px;
+}
+
+.horizontalButtonFrame {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
+}
+
+.directionalButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  background-color: #ed1d0e;
+  border: 0;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.directionalButton:active {
+  background-color: #c4160a;
+}
+
+.fullWidth {
+  width: 100%;
+  text-align: center;
+}
