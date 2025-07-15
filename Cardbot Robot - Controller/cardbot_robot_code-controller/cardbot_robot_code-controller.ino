@@ -13,7 +13,7 @@
 //  █▄█ ░█░   █░▀░█ █▀█ █░█ █▀▄
 //
 //  Cardbot Robot Code - Controller
-//  Version: 0.1.0
+//  Version: 0.1.1
 //  Date: 7/8/2025
 //  Cardbot code for autonomous mode and controllers
 //  Carbot Version: 1.2
