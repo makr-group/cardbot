@@ -1,4 +1,4 @@
-Code for Cardbot controllers.
+Code for controller based Cardbots.
 
 Adruino IDE addons:
 
