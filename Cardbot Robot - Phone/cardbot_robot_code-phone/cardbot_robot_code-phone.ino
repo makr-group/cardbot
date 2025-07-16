@@ -32,7 +32,7 @@
 
 //-------------------------------------
 
-char CARDBOT_NAME[] = "NAME HERE";
+const char CARDBOT_NAME[] = "NAME HERE";
 
 //-------------------------------------
 
@@ -41,90 +41,90 @@ const char *CARDBOT_PASSWORD = "PASSWORD_HERE";
 IPAddress subnet(255,255,255,0);
 
 // input array
-bool inputArray[4];
+bool input_array[4];
 // forward button, backward button, left Button, right Button
 
 //  █▀▄▀█ █▀█ ▀█▀ █▀█ █▀█   █▀ █▀▀ ▀█▀ █░█ █▀█
 //  █░▀░█ █▄█ ░█░ █▄█ █▀▄   ▄█ ██▄ ░█░ █▄█ █▀▀
 
-struct Motor
+struct motor
 {
-  uint8_t forwardPin;
-  uint8_t backwardPin;
+  uint8_t forward_pin;
+  uint8_t backward_pin;
   bool moving;
 
   void forward()
   {
-    digitalWrite(forwardPin, HIGH);
-    digitalWrite(backwardPin, LOW);
+    digitalWrite(forward_pin, HIGH);
+    digitalWrite(backward_pin, LOW);
     moving = true;
   }
 
   void backward()
   {
-    digitalWrite(forwardPin, LOW);
-    digitalWrite(backwardPin, HIGH);
+    digitalWrite(forward_pin, LOW);
+    digitalWrite(backward_pin, HIGH);
     moving = true;
   }
 
   void stop()
   {
-    digitalWrite(forwardPin, LOW);
-    digitalWrite(backwardPin, LOW);
+    digitalWrite(forward_pin, LOW);
+    digitalWrite(backward_pin, LOW);
     moving = false;
   }
 };
 
-Motor leftMotor = {LM_PIN_FORWARD, LM_PIN_BACKWARD};
-Motor rightMotor = {RM_PIN_FORWARD, RM_PIN_BACKWARD};
+motor left_motor = {LM_PIN_FORWARD, LM_PIN_BACKWARD};
+motor right_motor = {RM_PIN_FORWARD, RM_PIN_BACKWARD};
 
 //  █▀█ █▀█ █▄▄ █▀█ ▀█▀   █▀ █▀▀ ▀█▀ █░█ █▀█
 //  █▀▄ █▄█ █▄█ █▄█ ░█░   ▄█ ██▄ ░█░ █▄█ █▀▀
 
 void forwards()
 {
-  leftMotor.forward();
-  rightMotor.forward();
+  left_motor.forward();
+  right_motor.forward();
 }
 void backwards()
 {
-  leftMotor.backward();
-  rightMotor.backward();
+  left_motor.backward();
+  right_motor.backward();
 }
 void pivotLeft()
 {
-  leftMotor.backward();
-  rightMotor.forward();
+  left_motor.backward();
+  right_motor.forward();
 }
 void pivotRight()
 {
-  leftMotor.forward();
-  rightMotor.backward();
+  left_motor.forward();
+  right_motor.backward();
 }
 void turnLeftForward()
 {
-  leftMotor.stop();
-  rightMotor.forward();
+  left_motor.stop();
+  right_motor.forward();
 }
 void turnLeftBackward()
 {
-  leftMotor.stop();
-  rightMotor.backward();
+  left_motor.stop();
+  right_motor.backward();
 }
 void turnRigthForward()
 {
-  leftMotor.forward();
-  rightMotor.stop();
+  left_motor.forward();
+  right_motor.stop();
 }
 void turnRightBackward()
 {
-  leftMotor.backward();
-  rightMotor.stop();
+  left_motor.backward();
+  right_motor.stop();
 }
 void stop()
 {
-  leftMotor.stop();
-  rightMotor.stop();
+  left_motor.stop();
+  right_motor.stop();
 }
 
 //  █▀▀ █ █░░ █▀▀   █▀ █▄█ ▀█▀ █▀▀ █▀▄▀█   █▀ █▀▀ ▀█▀ █░█ █▀█
@@ -146,7 +146,7 @@ AsyncWebSocket ws("/ws");
 
 boolean moving()
 {
-  if (leftMotor.moving || rightMotor.moving)
+  if (left_motor.moving || right_motor.moving)
   {
     return true;
   }
@@ -204,50 +204,50 @@ void actionHandler(const char *data)
 {
   if (strcmp(data, "up") == 0)
   {
-    inputArray[0] = 1;
+    input_array[0] = 1;
     Serial.println("Up");
   }
   else if (strcmp(data, "dp") == 0)
   {
-    inputArray[1] = 1;
+    input_array[1] = 1;
     Serial.println("DP");
   }
   else if (strcmp(data, "lp") == 0)
   {
-    inputArray[2] = 1;
+    input_array[2] = 1;
     Serial.println("LP");
   }
   else if (strcmp(data, "rp") == 0)
   {
-    inputArray[3] = 1;
+    input_array[3] = 1;
     Serial.println("RP");
   }
   else if (strcmp(data, "ur") == 0)
   {
-    inputArray[0] = 0;
+    input_array[0] = 0;
     Serial.println("UR");
   }
   else if (strcmp((char *)data, "dr") == 0)
   {
-    inputArray[1] = 0;
+    input_array[1] = 0;
     Serial.println("DR");
   }
   else if (strcmp((char *)data, "lr") == 0)
   {
-    inputArray[2] = 0;
+    input_array[2] = 0;
     Serial.println("LR");
   }
   else if (strcmp((char *)data, "rr") == 0)
   {
-    inputArray[3] = 0;
+    input_array[3] = 0;
     Serial.println("RR");
   }
   else
   {
-    inputArray[3] = 0;
-    inputArray[2] = 0;
-    inputArray[1] = 0;
-    inputArray[0] = 0;
+    input_array[3] = 0;
+    input_array[2] = 0;
+    input_array[1] = 0;
+    input_array[0] = 0;
   }
 }
 // handles request messages
@@ -274,61 +274,61 @@ void robotControl()
 {
   static bool updateCheck[4];
 
-  if (updateCheck[0] != inputArray[0] or updateCheck[1] != inputArray[1] or updateCheck[2] != inputArray[2] or
-      updateCheck[3] != inputArray[3])
+  if (updateCheck[0] != input_array[0] or updateCheck[1] != input_array[1] or updateCheck[2] != input_array[2] or
+      updateCheck[3] != input_array[3])
   {
 
     // Forwards
-    if (inputArray[0] == true && inputArray[1] == false && inputArray[2] == false && inputArray[3] == false)
+    if (input_array[0] == true && input_array[1] == false && input_array[2] == false && input_array[3] == false)
     {
       forwards();
       notifyClients("motor", "on");
       Serial.print("Forward");
     }
     // Backwards
-    else if (inputArray[0] == false && inputArray[1] == true && inputArray[2] == false && inputArray[3] == false)
+    else if (input_array[0] == false && input_array[1] == true && input_array[2] == false && input_array[3] == false)
     {
       backwards();
       notifyClients("motor", "on");
       Serial.print("Backwards");
     }
     // Pivot left
-    else if (inputArray[0] == false && inputArray[1] == false && inputArray[2] == true && inputArray[3] == false)
+    else if (input_array[0] == false && input_array[1] == false && input_array[2] == true && input_array[3] == false)
     {
       pivotLeft();
       notifyClients("motor", "on");
       Serial.print("Pivot Left");
     }
     // Pivot right
-    else if (inputArray[0] == false && inputArray[1] == false && inputArray[2] == false && inputArray[3] == true)
+    else if (input_array[0] == false && input_array[1] == false && input_array[2] == false && input_array[3] == true)
     {
       pivotRight();
       notifyClients("motor", "on");
       Serial.print("Pivot Right");
     }
     // Turn left forward
-    else if (inputArray[0] == true && inputArray[1] == false && inputArray[2] == true && inputArray[3] == false)
+    else if (input_array[0] == true && input_array[1] == false && input_array[2] == true && input_array[3] == false)
     {
       turnLeftForward();
       notifyClients("motor", "on");
       Serial.print("Turn Left Forward");
     }
     // Turn left backward
-    else if (inputArray[0] == false && inputArray[1] == true && inputArray[2] == true && inputArray[3] == false)
+    else if (input_array[0] == false && input_array[1] == true && input_array[2] == true && input_array[3] == false)
     {
       turnLeftBackward();
       notifyClients("motor", "on");
       Serial.print("Turn Left Backwards");
     }
     // Turn right forwards
-    else if (inputArray[0] == true && inputArray[1] == false && inputArray[2] == false && inputArray[3] == true)
+    else if (input_array[0] == true && input_array[1] == false && input_array[2] == false && input_array[3] == true)
     {
       turnRigthForward();
       notifyClients("motor", "on");
       Serial.print("Turn Right Forwards");
     }
     // Turn right backward
-    else if (inputArray[0] == false && inputArray[1] == true && inputArray[2] == false && inputArray[3] == true)
+    else if (input_array[0] == false && input_array[1] == true && input_array[2] == false && input_array[3] == true)
     {
       turnRightBackward();
       notifyClients("motor", "on");
@@ -339,10 +339,10 @@ void robotControl()
       stop();
       notifyClients("motor", "off");
     }
-    updateCheck[0] = inputArray[0];
-    updateCheck[1] = inputArray[1];
-    updateCheck[2] = inputArray[2];
-    updateCheck[3] = inputArray[3];
+    updateCheck[0] = input_array[0];
+    updateCheck[1] = input_array[1];
+    updateCheck[2] = input_array[2];
+    updateCheck[3] = input_array[3];
   }
 }
 // message type handler
@@ -425,10 +425,10 @@ void initWebSocket()
 
 void setup()
 {
-  pinMode(leftMotor.forwardPin, OUTPUT);
-  pinMode(leftMotor.backwardPin, OUTPUT);
-  pinMode(rightMotor.forwardPin, OUTPUT);
-  pinMode(rightMotor.backwardPin, OUTPUT);
+  pinMode(left_motor.forward_pin, OUTPUT);
+  pinMode(left_motor.backward_pin, OUTPUT);
+  pinMode(right_motor.forward_pin, OUTPUT);
+  pinMode(right_motor.backward_pin, OUTPUT);
 
   Serial.begin(115200);
   delay(500);
