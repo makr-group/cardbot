@@ -13,7 +13,7 @@
 //  █▄█ ░█░   █░▀░█ █▀█ █░█ █▀▄
 //
 //  Cardbot Robot Code - Controller
-//  Version: 0.1.1
+//  Version: 0.1.0
 //  Date: 7/8/2025
 //  Cardbot code for autonomous mode and controllers
 //  Carbot Version: 1.2
@@ -95,7 +95,7 @@ void backwards(int time = 0) {
     delay(100);
   }
 }
-void pivot_left(int time = 0) {
+void pivotLeft(int time = 0) {
   left_motor.backward();
   right_motor.forward();
   delay(time);
@@ -103,7 +103,7 @@ void pivot_left(int time = 0) {
     delay(100);
   }
 }
-void pivot_right(int time = 0) {
+void pivotRight(int time = 0) {
   left_motor.forward();
   right_motor.backward();
   delay(time);
@@ -111,7 +111,7 @@ void pivot_right(int time = 0) {
     delay(100);
   }
 }
-void turnLeft_forward(int time = 0) {
+void turnLeftForward(int time = 0) {
   left_motor.stop();
   right_motor.forward();
   delay(time);
@@ -119,7 +119,7 @@ void turnLeft_forward(int time = 0) {
     delay(100);
   }
 }
-void turnLeft_backward(int time = 0) {
+void turnLeftBackward(int time = 0) {
   left_motor.stop();
   right_motor.backward();
   delay(time);
@@ -127,7 +127,7 @@ void turnLeft_backward(int time = 0) {
     delay(100);
   }
 }
-void turnRight_forward(int time = 0) {
+void turnRightForward(int time = 0) {
   left_motor.forward();
   right_motor.stop();
   delay(time);
@@ -135,7 +135,7 @@ void turnRight_forward(int time = 0) {
     delay(50);
   }
 }
-void turnRight_backward(int time = 0) {
+void turnRightBackward(int time = 0) {
   left_motor.backward();
   right_motor.stop();
   delay(time);
@@ -161,23 +161,23 @@ typedef struct controller_message {
 controller_message controller;
 
 // callback function on controller message
-void controller_mode(const esp_now_recv_info_t *info, const uint8_t *incoming_data, int len) {
+void controllerMode(const esp_now_recv_info_t *info, const uint8_t *incoming_data, int len) {
 
   memcpy(&controller, incoming_data, sizeof(controller));
   if (!automonus_active) {  
     // controller will be locked out in while in automonus mode 
     if (controller.up_state && controller.left_state) {
-      turnLeft_forward();
+      turnLeftForward();
     } else if (controller.up_state && controller.right_state) {
-      turnRight_forward();
+      turnRightForward();
     } else if (controller.down_state && controller.left_state) {
-      turnLeft_backward();
+      turnLeftBackward();
     } else if (controller.down_state && controller.right_state) {
-      turnRight_backward();
+      turnRightBackward();
     } else if (controller.left_state) {
-      pivot_left();
+      pivotLeft();
     } else if (controller.right_state) {
-      pivot_right();
+      pivotRight();
     } else if (controller.up_state) {
       forwards();
     } else if (controller.down_state) {
@@ -192,7 +192,7 @@ void controller_mode(const esp_now_recv_info_t *info, const uint8_t *incoming_da
 //  █▀█ █▄█ ░█░ █▄█ █░▀░█ █▄█ █░▀█ █▄█ ▄█   █░▀░█ █▄█ █▄▀ ██▄
 
 // automonus code to run on button press
-void automonus_mode() {
+void automonusMode() {
   // atonmonus code here
 }
 
@@ -213,7 +213,7 @@ void setup() {
   }
 
   // Register callback function
-  esp_now_register_recv_cb(controller_mode);
+  esp_now_register_recv_cb(controllerMode);
 }
 
 //  █▀▄▀█ ▄▀█ █ █▄░█   █░░ █▀█ █▀█ █▀█
@@ -228,7 +228,7 @@ void loop() {
   if (digitalRead(BUTTON_PIN)) {
     automonus_active = true;  // locks out controller
     delay(1000);              // 1 sec delay befor start
-    automonus_mode();
+    automonusMode();
     automonus_active = false;
   }
 
