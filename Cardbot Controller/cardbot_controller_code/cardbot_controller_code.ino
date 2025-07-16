@@ -30,32 +30,32 @@
 esp_now_peer_info_t peer_info;
 uint8_t broadcast_address[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };  // YOUR MAC ADDRESS HERE
 
-void on_data_sent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+void onDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 }
 
 //  █▄▄ █░█ ▀█▀ ▀█▀ █▀█ █▄░█   █▀ █▀▀ ▀█▀ █░█ █▀█
 //  █▄█ █▄█ ░█░ ░█░ █▄█ █░▀█   ▄█ ██▄ ░█░ █▄█ █▀▀
 
-typedef struct Button {
+typedef struct button {
   uint8_t pin;
   bool pressed;
 
-  void set_pin(uint8_t gpio_pin) {
+  void setPin(uint8_t gpio_pin) {
     pin = gpio_pin;
     pinMode(pin, INPUT_PULLDOWN);
   }
 
-  bool get_value() {
+  bool getValue() {
     pressed = digitalRead(pin);
     return pressed;
   }
 
 } Button;
 
-Button up_button;
-Button down_button;
-Button left_button;
-Button right_button;
+button up_button;
+button down_button;
+button left_button;
+button right_button;
 
 //  █▀▀ █▀█ █▄░█ ▀█▀ █▀█ █▀█ █░░ █░░ █▀▀ █▀█   █▀ █▀▀ ▀█▀ █░█ █▀█
 //  █▄▄ █▄█ █░▀█ ░█░ █▀▄ █▄█ █▄▄ █▄▄ ██▄ █▀▄   ▄█ ██▄ ░█░ █▄█ █▀▀
@@ -72,11 +72,11 @@ typedef struct controller_message {
 
 controller_message controller;
 
-void get_controller_state() {
-  controller.up_state = up_button.get_value();
-  controller.down_state = down_button.get_value();
-  controller.left_state = left_button.get_value();
-  controller.right_state = right_button.get_value();
+void getControllerState() {
+  controller.up_state = up_button.getValue();
+  controller.down_state = down_button.getValue();
+  controller.left_state = left_button.getValue();
+  controller.right_state = right_button.getValue();
 };
 
 //  █▀ █▀▀ ▀█▀ █░█ █▀█
@@ -86,10 +86,10 @@ void setup() {
 
   Serial.begin(115200);
 
-  right_button.set_pin(RIGHT_BUTTON_PIN);
-  left_button.set_pin(LEFT_BUTTON_PIN);
-  up_button.set_pin(UP_BUTTON_PIN);
-  down_button.set_pin(DOWN_BUTTON_PIN);
+  right_button.setPin(RIGHT_BUTTON_PIN);
+  left_button.setPin(LEFT_BUTTON_PIN);
+  up_button.setPin(UP_BUTTON_PIN);
+  down_button.setPin(DOWN_BUTTON_PIN);
 
   WiFi.mode(WIFI_STA);
 
@@ -98,7 +98,7 @@ void setup() {
     return;
   }
 
-  esp_now_register_send_cb(on_data_sent);  // This does nothign but exists.
+  esp_now_register_send_cb(onDataSent);  // This does nothign but exists.
 
   memcpy(peer_info.peer_addr, broadcast_address, 6);
   peer_info.channel = 0;
@@ -116,7 +116,7 @@ void setup() {
 void loop() {
   static controller_message last_state;
 
-  get_controller_state();
+  getControllerState();
 
   if (controller.down_state != last_state.down_state || controller.up_state != last_state.up_state || controller.left_state != last_state.left_state || controller.right_state != last_state.right_state) {
 
