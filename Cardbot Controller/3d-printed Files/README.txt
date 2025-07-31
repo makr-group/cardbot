@@ -14,7 +14,7 @@ Settings:
 Notes:
 * No supports is important to keep the USB-C port clean
   of unwanted material for "Controller - Face Plate". Supports 
-  might be needed if your  printer cannot handle the that length 
+  might be needed if your  printer cannot handle the length 
   of bridging.
 
 Printer Bambu labs P1S
