@@ -1,7 +1,7 @@
 STL and Step files for cardbot controllers
 
 STLs are designed to be printed with PLA and are untested 
-with PETG, ABS, and ABS.
+with PETG, ASA, and ABS.
 
 Tested with:
 
