@@ -1,3 +1,6 @@
 Overall Dimentions:
 Width: 6.85732 in / 174.17611 mm
 Height: 5.692443 in / 144.58805 mm
+
+Use the overall dimentions to ensure the the scale of the carbot is correct, adjust as needed
+in you software.
