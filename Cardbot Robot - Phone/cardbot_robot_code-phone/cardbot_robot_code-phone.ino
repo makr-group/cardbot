@@ -15,8 +15,9 @@
 //  Cardbot Robot Code - Phone
 //  Version: 0.1.1
 //  Date: 7/14/2025
-//  Cardbot code for autonomous mode and controllers
-//  Carbot Version: 1.0
+//  Cardbot code for phone control only
+//    - button input is disabled
+//  Carbot Version: 1.0 - 1.2
 
 #include <LittleFS.h>
 #include <WiFi.h>
