@@ -98,8 +98,6 @@ void setup() {
     return;
   }
 
-  esp_now_register_send_cb(onDataSent);  // This does nothign but exists.
-
   memcpy(peer_info.peer_addr, broadcast_address, 6);
   peer_info.channel = 0;
   peer_info.encrypt = false;
