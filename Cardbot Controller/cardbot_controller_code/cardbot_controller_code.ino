@@ -30,9 +30,6 @@
 esp_now_peer_info_t peer_info;
 uint8_t broadcast_address[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };  // YOUR MAC ADDRESS HERE
 
-void onDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-}
-
 //  █▄▄ █░█ ▀█▀ ▀█▀ █▀█ █▄░█   █▀ █▀▀ ▀█▀ █░█ █▀█
 //  █▄█ █▄█ ░█░ ░█░ █▄█ █░▀█   ▄█ ██▄ ░█░ █▄█ █▀▀
 
